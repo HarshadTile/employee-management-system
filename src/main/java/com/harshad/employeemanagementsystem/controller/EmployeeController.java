@@ -1,6 +1,7 @@
 package com.harshad.employeemanagementsystem.controller;
 
-import com.harshad.employeemanagementsystem.entity.Employee;
+import com.harshad.employeemanagementsystem.dto.EmployeeRequestDTO;
+import com.harshad.employeemanagementsystem.dto.EmployeeResponseDTO;
 import com.harshad.employeemanagementsystem.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +18,39 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public Employee saveEmployee(@RequestBody Employee employee) {
-        return employeeService.saveEmployee(employee);
+    public EmployeeResponseDTO saveEmployee(
+            @RequestBody EmployeeRequestDTO requestDTO) {
+
+        return employeeService.saveEmployee(requestDTO);
     }
 
     @GetMapping
-    public List<Employee> getAllEmployee() {
+    public List<EmployeeResponseDTO> getAllEmployees() {
+
         return employeeService.getAllEmployees();
     }
 
+    @GetMapping("/{id}")
+    public EmployeeResponseDTO getEmployeeById(
+            @PathVariable Long id) {
+
+        return employeeService.getEmployeeById(id);
+    }
+
+    @PutMapping("/{id}")
+    public EmployeeResponseDTO updateEmployee(
+            @PathVariable Long id,
+            @RequestBody EmployeeRequestDTO requestDTO) {
+
+        return employeeService.updateEmployee(id, requestDTO);
+    }
+
+    @PatchMapping("/{id}")
+    public EmployeeResponseDTO updateEmployeePartial(
+            @PathVariable Long id,
+            @RequestBody EmployeeRequestDTO requestDTO) {
+
+        return employeeService.updateEmployeePartial(id, requestDTO);
+    }
 }
+
